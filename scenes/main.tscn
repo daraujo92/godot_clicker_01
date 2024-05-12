@@ -1,0 +1,156 @@
+[gd_scene load_steps=5 format=3 uid="uid://do46ncrs1hfni"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_hb2n3"]
+[ext_resource type="PackedScene" uid="uid://uyum3thtevxy" path="res://scenes/resource.tscn" id="2_qeyp0"]
+[ext_resource type="PackedScene" uid="uid://cks084rxh2n2g" path="res://scenes/hud.tscn" id="3_luo60"]
+
+[sub_resource type="GDScript" id="GDScript_jk1in"]
+script/source = "extends Button
+"
+
+[node name="Main" type="Node"]
+script = ExtResource("1_hb2n3")
+
+[node name="Gold" parent="." instance=ExtResource("2_qeyp0")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="BuyMiner" type="Button" parent="Gold"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -23.5
+offset_top = 10.0
+offset_right = 23.5
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Buy Miner"
+script = SubResource("GDScript_jk1in")
+
+[node name="GoldPriceLabel" type="Label" parent="Gold/BuyMiner"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = 9.0
+offset_right = 7.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Cost: 30 Gold"
+horizontal_alignment = 1
+
+[node name="Food" parent="." instance=ExtResource("2_qeyp0")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BuyFarmer" type="Button" parent="Food"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_top = 10.0
+offset_right = 29.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Buy Farmer"
+script = SubResource("GDScript_jk1in")
+
+[node name="FoodPriceLabel" type="Label" parent="Food/BuyFarmer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 9.0
+offset_right = 3.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Cost: 30 Food"
+horizontal_alignment = 1
+
+[node name="Wood" parent="." instance=ExtResource("2_qeyp0")]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = -60.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="BuyCutter" type="Button" parent="Wood"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.5
+offset_top = 10.0
+offset_right = 25.5
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Buy Cutter
+"
+script = SubResource("GDScript_jk1in")
+
+[node name="WoodPriceLabel" type="Label" parent="Wood/BuyCutter"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.5
+offset_top = 9.0
+offset_right = 9.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Cost: 30 Wood"
+horizontal_alignment = 1
+
+[node name="HUD" parent="." instance=ExtResource("3_luo60")]
+
+[node name="Workers" type="Node" parent="."]
+
+[node name="ResourcesTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="add_resource" from="Gold" to="." method="_on_player_add"]
+[connection signal="pressed" from="Gold/BuyMiner" to="." method="_on_buy_pressed" binds= ["gold"]]
+[connection signal="add_resource" from="Food" to="." method="_on_player_add"]
+[connection signal="pressed" from="Food/BuyFarmer" to="." method="_on_buy_pressed" binds= ["food"]]
+[connection signal="add_resource" from="Wood" to="." method="_on_player_add"]
+[connection signal="pressed" from="Wood/BuyCutter" to="." method="_on_buy_pressed" binds= ["wood"]]
+[connection signal="timeout" from="ResourcesTimer" to="." method="_on_resources_timer_timeout"]

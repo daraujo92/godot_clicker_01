@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://do46ncrs1hfni"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_hb2n3"]
+[ext_resource type="PackedScene" uid="uid://uyum3thtevxy" path="res://scenes/resource.tscn" id="2_qeyp0"]
+[ext_resource type="PackedScene" uid="uid://cks084rxh2n2g" path="res://scenes/hud.tscn" id="3_luo60"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_hb2n3")
+
+[node name="Gold" parent="." instance=ExtResource("2_qeyp0")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="Food" parent="." instance=ExtResource("2_qeyp0")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wood" parent="." instance=ExtResource("2_qeyp0")]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -20.0
+offset_right = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HUD" parent="." instance=ExtResource("3_luo60")]
+
+[node name="Workers" type="Node" parent="."]
+
+[connection signal="add_resource" from="Gold" to="." method="_on_player_add_gold"]
+[connection signal="add_resource" from="Food" to="." method="_on_player_add_wood"]
+[connection signal="add_resource" from="Wood" to="." method="_on_player_add_wood"]

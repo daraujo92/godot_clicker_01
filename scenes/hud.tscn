@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cks084rxh2n2g"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="ResourcesLabel" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
